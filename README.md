@@ -41,7 +41,18 @@ Expense-Tracker/
 3. Run with Live Server
 4. Open Login Page
 5. Start managing expenses
-
+   
 # Author
 
 Subhankar Srivastava
+
+# Assumptions:
+• User enters valid details
+• Data is stored in browser local storage
+• Internet is available for Chart.js
+
+# Design Decisions:
+• Used HTML, CSS and JavaScript
+• Used Chart.js for expense analytics
+• Added responsive UI and dark mode
+• Login page is the entry point of the project
