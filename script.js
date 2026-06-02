@@ -43,11 +43,6 @@ document.getElementById("exportBtn");
 
 const clearBtn =
 document.getElementById("clearBtn");
-
-
-
-// LOGIN PROTECTION
-
 if(
 !localStorage.getItem("user")
 ){
@@ -56,11 +51,6 @@ window.location.href=
 "index.html";
 
 }
-
-
-
-// ADD / UPDATE
-
 form.addEventListener(
 "submit",
 function(e){
@@ -121,12 +111,6 @@ form.reset();
 }
 
 );
-
-
-
-
-// SAVE
-
 function saveData(){
 
 localStorage.setItem(
@@ -138,12 +122,6 @@ JSON.stringify(expenses)
 );
 
 }
-
-
-
-
-// SHOW
-
 function showExpenses(data=expenses){
 
 tbody.innerHTML="";
@@ -224,13 +202,6 @@ totalTransactions.innerText=
 data.length;
 
 }
-
-
-
-
-
-// EDIT
-
 function editExpense(id){
 
 let expense=
@@ -267,13 +238,6 @@ expense.payment;
 editId=id;
 
 }
-
-
-
-
-
-// DELETE
-
 function deleteExpense(id){
 
 expenses=
@@ -289,13 +253,6 @@ showExpenses();
 updateChart();
 
 }
-
-
-
-
-
-// SEARCH
-
 search.addEventListener(
 
 "keyup",
@@ -328,12 +285,6 @@ showExpenses(filtered);
 }
 
 );
-
-
-
-
-// FILTER
-
 applyFilter.onclick=()=>{
 
 let filtered=
@@ -387,12 +338,6 @@ maxMatch
 showExpenses(filtered);
 
 };
-
-
-
-
-// EXPORT CSV
-
 exportBtn.onclick=()=>{
 
 let csv=
@@ -434,11 +379,6 @@ a.click();
 
 };
 
-
-
-
-// CLEAR ALL
-
 clearBtn.onclick=()=>{
 
 if(
@@ -458,12 +398,6 @@ updateChart();
 }
 
 };
-
-
-
-
-// DARK MODE
-
 themeBtn.onclick = ()=>{
 
 document.body.classList.toggle(
@@ -500,12 +434,6 @@ document.body.classList.add(
 }
 
 };
-
-
-
-
-// LOGOUT
-
 logoutBtn.onclick=()=>{
 
 localStorage.removeItem(
@@ -516,12 +444,6 @@ window.location.href=
 "index.html";
 
 };
-
-
-
-
-// LOAD
-
 showExpenses();
 
 updateChart();
