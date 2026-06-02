@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Expense Dashboard
+</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<h2>
+💰 Expense Dashboard
+</h2>
+
+<div>
+
+<button id="themeBtn">
+🌙
+</button>
+
+<button id="logoutBtn">
+Logout
+</button>
+
+</div>
+
+</nav>
+
+
+<div class="container">
+
+<!-- CARDS -->
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Total Expense
+</h3>
+
+<p id="totalExpense">
+₹0
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Total Transactions
+</h3>
+
+<p id="totalTransactions">
+0
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- FORM -->
+
+<div class="expense-form">
+
+<h2>
+Add Expense
+</h2>
+
+<form id="expenseForm">
+
+<input
+type="number"
+id="amount"
+placeholder="Amount"
+required
+>
+
+<select
+id="category"
+required
+>
+
+<option value="">
+Select Category
+</option>
+
+<option>🍔 Food</option>
+<option>✈️ Travel</option>
+<option>🛒 Shopping</option>
+<option>💡 Bills</option>
+
+</select>
+
+
+<input
+type="date"
+id="date"
+required
+>
+
+<input
+type="text"
+id="description"
+placeholder="Description"
+required
+>
+
+<select
+id="payment"
+required
+>
+
+<option>Cash</option>
+<option>UPI</option>
+<option>Card</option>
+
+</select>
+
+<button type="submit">
+Add Expense
+</button>
+
+</form>
+
+</div>
+
+
+
+<!-- SEARCH -->
+
+<div class="searchBox">
+
+<input
+type="text"
+id="search"
+placeholder="Search transaction..."
+>
+
+</div>
+
+
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<select id="filterCategory">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="🍔 Food">
+🍔 Food
+</option>
+
+<option value="✈️ Travel">
+✈️ Travel
+</option>
+
+<option value="🛒 Shopping">
+🛒 Shopping
+</option>
+
+<option value="💡 Bills">
+💡 Bills
+</option>
+
+</select>
+
+<input
+type="number"
+id="minAmount"
+placeholder="Min Amount"
+>
+
+<input
+type="number"
+id="maxAmount"
+placeholder="Max Amount"
+>
+
+<select id="sortDate">
+
+<option value="new">
+Newest First
+</option>
+
+<option value="old">
+Oldest First
+</option>
+
+</select>
+
+
+<button id="applyFilter">
+Apply Filter
+</button>
+
+<button id="resetBtn">
+Reset
+</button>
+
+</div>
+
+
+
+<!-- EXTRA BUTTONS -->
+
+<div class="filters">
+
+<button id="exportBtn">
+Export CSV
+</button>
+
+<button id="clearBtn">
+Clear All
+</button>
+
+</div>
+
+
+
+<!-- TABLE -->
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Amount</th>
+<th>Category</th>
+<th>Date</th>
+<th>Description</th>
+<th>Payment</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tbody">
+
+</tbody>
+
+</table>
+
+
+
+<!-- CHART -->
+
+<div class="chart-container">
+
+<canvas
+id="expenseChart"
+width="300"
+height="300">
+
+</canvas>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div id="toast">
+
+Action Completed ✅
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer style="text-align:center;margin-top:30px;padding:20px;opacity:.7;">
+
+Created by Subhankar Srivastava
+
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+<script src="chart.js"></script>
+
+</body>
+</html>
