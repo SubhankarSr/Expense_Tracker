@@ -17,6 +17,9 @@ document.getElementById("totalExpense");
 const totalTransactions =
 document.getElementById("totalTransactions");
 
+const averageExpense =
+document.getElementById("averageExpense");
+
 const search =
 document.getElementById("search");
 
@@ -35,6 +38,9 @@ document.getElementById("maxAmount");
 const applyFilter =
 document.getElementById("applyFilter");
 
+const resetBtn =
+document.getElementById("resetBtn");
+
 const logoutBtn =
 document.getElementById("logoutBtn");
 
@@ -43,12 +49,41 @@ document.getElementById("exportBtn");
 
 const clearBtn =
 document.getElementById("clearBtn");
-if(
-!localStorage.getItem("user")
-){
 
-window.location.href=
+
+/* LOGIN CHECK */
+
+if(!localStorage.getItem("user")){
+
+window.location.href =
 "index.html";
+
+}
+function showToast(message){
+
+let toast =
+document.getElementById("toast");
+
+toast.innerText = message;
+
+toast.style.cssText = `
+position:fixed;
+bottom:20px;
+right:20px;
+padding:15px;
+border-radius:10px;
+background:#2563eb;
+color:white;
+opacity:1;
+transition:.5s;
+z-index:1000;
+`;
+
+setTimeout(()=>{
+
+toast.style.opacity="0";
+
+},2500);
 
 }
 form.addEventListener(
@@ -57,13 +92,25 @@ function(e){
 
 e.preventDefault();
 
+let amount =
+document.getElementById("amount").value;
+
+if(amount<=0){
+
+showToast(
+"Enter valid amount"
+);
+
+return;
+
+}
+
 let expense={
 
 id:
 editId || Date.now(),
 
-amount:
-document.getElementById("amount").value,
+amount:amount,
 
 category:
 document.getElementById("category").value,
@@ -82,7 +129,7 @@ document.getElementById("payment").value
 
 if(editId){
 
-expenses=
+expenses =
 expenses.map(item=>
 
 item.id===editId
@@ -93,10 +140,18 @@ item.id===editId
 
 editId=null;
 
+showToast(
+"Expense Updated ✅"
+);
+
 }
 else{
 
 expenses.push(expense);
+
+showToast(
+"Expense Added ✅"
+);
 
 }
 
@@ -111,36 +166,30 @@ form.reset();
 }
 
 );
+
 function saveData(){
 
 localStorage.setItem(
-
 "expenses",
-
 JSON.stringify(expenses)
-
 );
 
 }
+
 function showExpenses(data=expenses){
 
 tbody.innerHTML="";
 
 let total=0;
 
-
 if(data.length===0){
 
 tbody.innerHTML=`
 
 <tr>
-
 <td colspan="6">
-
 No Transactions Found
-
 </td>
-
 </tr>
 
 `;
@@ -150,11 +199,11 @@ No Transactions Found
 
 data.forEach(item=>{
 
-total +=
-Number(item.amount);
+total += Number(
+item.amount
+);
 
-
-tbody.innerHTML +=`
+tbody.innerHTML += `
 
 <tr>
 
@@ -170,16 +219,14 @@ tbody.innerHTML +=`
 
 <td>
 
-<button
-onclick=
+<button onclick=
 "editExpense(${item.id})">
 
 Edit
 
 </button>
 
-<button
-onclick=
+<button onclick=
 "deleteExpense(${item.id})">
 
 Delete
@@ -201,11 +248,19 @@ totalExpense.innerText=
 totalTransactions.innerText=
 data.length;
 
+let avg =
+data.length===0
+?0
+:(total/data.length);
+
+averageExpense.innerText=
+`₹${avg.toFixed(0)}`;
+
 }
+
 function editExpense(id){
 
 let expense=
-
 expenses.find(
 item=>item.id===id
 );
@@ -237,11 +292,22 @@ expense.payment;
 
 editId=id;
 
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+});
+
+showToast(
+"Editing Expense..."
+);
+
 }
+
 function deleteExpense(id){
 
 expenses=
-
 expenses.filter(
 item=>item.id!==id
 );
@@ -252,15 +318,17 @@ showExpenses();
 
 updateChart();
 
+showToast(
+"Expense Deleted ❌"
+);
+
 }
+
 search.addEventListener(
-
 "keyup",
-
-function(){
+()=>{
 
 let value=
-
 search.value
 .toLowerCase();
 
@@ -283,8 +351,8 @@ item.category
 showExpenses(filtered);
 
 }
-
 );
+
 applyFilter.onclick=()=>{
 
 let filtered=
@@ -300,7 +368,6 @@ filterCategory.value==="all"
 item.category===
 filterCategory.value;
 
-
 let minMatch=
 
 minAmount.value===""
@@ -310,7 +377,6 @@ minAmount.value===""
 Number(item.amount)
 >=
 Number(minAmount.value);
-
 
 let maxMatch=
 
@@ -322,15 +388,12 @@ Number(item.amount)
 <=
 Number(maxAmount.value);
 
-
 return(
-
 categoryMatch
 &&
 minMatch
 &&
 maxMatch
-
 );
 
 });
@@ -338,16 +401,34 @@ maxMatch
 showExpenses(filtered);
 
 };
+
+resetBtn.onclick=()=>{
+
+filterCategory.value=
+"all";
+
+minAmount.value="";
+
+maxAmount.value="";
+
+search.value="";
+
+showExpenses();
+
+showToast(
+"Filters Reset"
+);
+
+};
+
 exportBtn.onclick=()=>{
 
 let csv=
-
 "Amount,Category,Date,Description,Payment\n";
 
 expenses.forEach(item=>{
 
 csv +=
-
 `${item.amount},
 ${item.category},
 ${item.date},
@@ -357,35 +438,39 @@ ${item.payment}\n`;
 });
 
 let blob=
-
 new Blob(
 [csv],
-{type:"text/csv"}
+{
+type:"text/csv"
+}
 );
 
 let a=
-
 document.createElement(
 "a"
 );
 
 a.href=
-URL.createObjectURL(blob);
+URL.createObjectURL(
+blob
+);
 
 a.download=
 "expenses.csv";
 
 a.click();
 
+showToast(
+"CSV Downloaded"
+);
+
 };
 
 clearBtn.onclick=()=>{
 
-if(
-confirm(
+if(confirm(
 "Delete all expenses?"
-)
-){
+)){
 
 expenses=[];
 
@@ -395,23 +480,34 @@ showExpenses();
 
 updateChart();
 
+showToast(
+"All Expenses Cleared"
+);
+
 }
 
 };
-themeBtn.onclick = ()=>{
+
+themeBtn.onclick=()=>{
 
 document.body.classList.toggle(
 "dark"
 );
 
-localStorage.setItem(
-
-"theme",
+themeBtn.innerHTML=
 
 document.body.classList.contains(
 "dark"
 )
 
+? "☀️"
+: "🌙";
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains(
+"dark"
+)
 );
 
 };
@@ -419,21 +515,21 @@ document.body.classList.contains(
 
 window.onload=()=>{
 
-if(
-
-localStorage.getItem(
+if(localStorage.getItem(
 "theme"
-)==="true"
-
-){
+)==="true"){
 
 document.body.classList.add(
 "dark"
 );
 
+themeBtn.innerHTML="☀️";
+
 }
 
 };
+
+
 logoutBtn.onclick=()=>{
 
 localStorage.removeItem(
@@ -444,6 +540,7 @@ window.location.href=
 "index.html";
 
 };
-showExpenses();
 
+
+showExpenses();
 updateChart();
