@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
@@ -43,6 +44,19 @@ Logout
 
 <div class="container">
 
+
+<div class="card welcome-card">
+
+<h2>
+Welcome Back 👋
+</h2>
+
+<p>
+Track your expenses smarter and manage your budget efficiently
+</p>
+
+</div>
+
 <div class="cards">
 
 <div class="card">
@@ -61,7 +75,7 @@ Total Expense
 <div class="card">
 
 <h3>
-Total Transactions
+Transactions
 </h3>
 
 <p id="totalTransactions">
@@ -70,8 +84,20 @@ Total Transactions
 
 </div>
 
+
+<div class="card">
+
+<h3>
+Average Expense
+</h3>
+
+<p id="averageExpense">
+₹0
+</p>
+
 </div>
 
+</div>
 <div class="expense-form">
 
 <h2>
@@ -84,13 +110,11 @@ Add Expense
 type="number"
 id="amount"
 placeholder="Amount"
-required
->
+required>
 
 <select
 id="category"
-required
->
+required>
 
 <option value="">
 Select Category
@@ -107,20 +131,18 @@ Select Category
 <input
 type="date"
 id="date"
-required
->
+required>
 
 <input
 type="text"
 id="description"
 placeholder="Description"
-required
->
+required>
+
 
 <select
 id="payment"
-required
->
+required>
 
 <option>Cash</option>
 <option>UPI</option>
@@ -129,24 +151,23 @@ required
 </select>
 
 <button type="submit">
+
 Add Expense
+
 </button>
 
 </form>
 
 </div>
 
-
 <div class="searchBox">
 
 <input
 type="text"
 id="search"
-placeholder="Search transaction..."
->
+placeholder="Search transactions...">
 
 </div>
-
 <div class="filters">
 
 <select id="filterCategory">
@@ -155,35 +176,27 @@ placeholder="Search transaction..."
 All Categories
 </option>
 
-<option value="🍔 Food">
-🍔 Food
-</option>
+<option value="🍔 Food">🍔 Food</option>
 
-<option value="✈️ Travel">
-✈️ Travel
-</option>
+<option value="✈️ Travel">✈️ Travel</option>
 
-<option value="🛒 Shopping">
-🛒 Shopping
-</option>
+<option value="🛒 Shopping">🛒 Shopping</option>
 
-<option value="💡 Bills">
-💡 Bills
-</option>
+<option value="💡 Bills">💡 Bills</option>
 
 </select>
+
 
 <input
 type="number"
 id="minAmount"
-placeholder="Min Amount"
->
+placeholder="Min Amount">
 
 <input
 type="number"
 id="maxAmount"
-placeholder="Max Amount"
->
+placeholder="Max Amount">
+
 
 <select id="sortDate">
 
@@ -199,26 +212,38 @@ Oldest First
 
 
 <button id="applyFilter">
+
 Apply Filter
+
 </button>
 
+
 <button id="resetBtn">
+
 Reset
+
 </button>
 
 </div>
+
 
 <div class="filters">
 
 <button id="exportBtn">
+
 Export CSV
+
 </button>
 
 <button id="clearBtn">
+
 Clear All
+
 </button>
 
 </div>
+<div style="overflow-x:auto;">
+
 <table>
 
 <thead>
@@ -242,22 +267,16 @@ Clear All
 
 </table>
 
+</div>
 <div class="chart-container">
 
 <canvas
-id="expenseChart"
-width="300"
-height="300">
+id="expenseChart">
 
 </canvas>
 
 </div>
 
-<div id="toast">
-
-Action Completed ✅
-
-</div>
 
 <footer style="text-align:center;margin-top:30px;padding:20px;opacity:.7;">
 
